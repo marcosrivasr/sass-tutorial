@@ -1,30 +1,6 @@
-$primary-color: #ffe923e0;
-$secondary-color: black;
-$terciary-color: white;
-
-$primary-color-dm: black;
-$secondary-color-dm: $primary-color;
-
-$box-shadow: 0 2px 10px 0 rgba(0,0,0,0.6);
-
-$limit: 10;
-$unit: 8;
-
-@mixin btn($background-color, $color, $border-color, $bold) {
-    background-color: $background-color;
-    color: $color;
-    border: solid 1px $border-color;
-    border-radius: 30px;
-    display: block;
-    padding: 20px 30px;
-    @if($bold == 'true'){
-        font-weight: bold;
-    } 
-}
-
-@function size($n){
-    @return #{$n * $unit}px;
-}
+@import "config";
+@import "utils";
+@import "button";
 
 *{
     padding: 0;
@@ -38,7 +14,7 @@ body{
 }
 
 a{
-    color: black;
+    color: $secondary-color;
     text-decoration: none;
 }
 
@@ -61,28 +37,6 @@ h3{
     border-radius: 20px;
 }
 
-.btn{
-    @include btn(black, white, transparent, 'true');
-
-    &.btn-cta{
-        @include btn($background-color: $primary-color, 
-                    $color: $secondary-color, 
-                    $border-color: transparent, 
-                    $bold: 'true');
-        
-        &:hover{
-            @include btn($terciary-color, black, black, 'true');
-        }
-    }
-
-    &:hover{
-        @include btn($terciary-color, $secondary-color, black, 'true');
-    }
-    
-}
-
-
-
 ul{
     padding: 0;
     margin: 0;
@@ -91,9 +45,9 @@ ul{
     gap: 20px;
     li{
         a{
-            @include btn(white, black, transparent, 'false');
+            @include btn($terciary-color, $font-color, 'false');
             &:hover{
-                @include btn(darken($color: $terciary-color, $amount: 90), $terciary-color, transparent, 'false');
+                @include btn(darken($color: $terciary-color, $amount: 90), $terciary-color, 'false');
                 box-shadow: $box-shadow;
             }
         }
@@ -108,20 +62,13 @@ header{
     }
 }
 
-.row{
-    display: flex;
-    .col{
-        width: 50%;
-    }
-}
 
-.m-auto{
-    margin: 0 auto;
-}
 
 .prices{
     .prev{
         font-size: size(2);
+        font-weight: bolder;
+        color: $font-color;
         text-decoration: line-through;
     }
 
@@ -134,29 +81,5 @@ header{
 @media (max-width: 1280px){
     .container{
         width: 100%;
-    }
-}
-
-@for $i from 1 to $limit {
-    .m-#{$i}{
-        margin: #{$i*$unit}px;
-    }
-}
-
-@for $i from 1 to $limit {
-    .p-#{$i}{
-        margin: #{$i*$unit}px;
-    }
-}
-
-@for $i from 1 to $limit {
-    .py-#{$i}{
-        margin: #{$i*$unit}px 0;
-    }
-}
-
-@for $i from 1 to 4 {
-    .w-#{$i * 25}{
-        width: $i * 25%;
     }
 }
