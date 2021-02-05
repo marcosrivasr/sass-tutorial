@@ -1,0 +1,162 @@
+$primary-color: #ffe923e0;
+$secondary-color: black;
+$terciary-color: white;
+
+$primary-color-dm: black;
+$secondary-color-dm: $primary-color;
+
+$box-shadow: 0 2px 10px 0 rgba(0,0,0,0.6);
+
+$limit: 10;
+$unit: 8;
+
+@mixin btn($background-color, $color, $border-color, $bold) {
+    background-color: $background-color;
+    color: $color;
+    border: solid 1px $border-color;
+    border-radius: 30px;
+    display: block;
+    padding: 20px 30px;
+    @if($bold == 'true'){
+        font-weight: bold;
+    } 
+}
+
+@function size($n){
+    @return #{$n * $unit}px;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: $primary-color;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+h2{
+    font-weight: bolder;
+    font-size: size(6);
+}
+
+h3{
+    font-weight: lighter;
+    font-size: size(3);
+}
+
+.container{
+    background-color: #fff;
+    margin: 100px auto;
+    width: 1280px;
+    padding: 50px;
+    box-shadow: 0 0 20px 2px rgba(0,0,0,0.1);
+    border-radius: 20px;
+}
+
+.btn{
+    @include btn(black, white, transparent, 'true');
+
+    &.btn-cta{
+        @include btn($background-color: $primary-color, 
+                    $color: $secondary-color, 
+                    $border-color: transparent, 
+                    $bold: 'true');
+        
+        &:hover{
+            @include btn($terciary-color, black, black, 'true');
+        }
+    }
+
+    &:hover{
+        @include btn($terciary-color, $secondary-color, black, 'true');
+    }
+    
+}
+
+
+
+ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    li{
+        a{
+            @include btn(white, black, transparent, 'false');
+            &:hover{
+                @include btn(darken($color: $terciary-color, $amount: 90), $terciary-color, transparent, 'false');
+                box-shadow: $box-shadow;
+            }
+        }
+    }
+}
+
+header{
+    nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.row{
+    display: flex;
+    .col{
+        width: 50%;
+    }
+}
+
+.m-auto{
+    margin: 0 auto;
+}
+
+.prices{
+    .prev{
+        font-size: size(2);
+        text-decoration: line-through;
+    }
+
+    .now{
+        font-size: size(5);
+        font-weight: bolder;
+    }
+}
+
+@media (max-width: 1280px){
+    .container{
+        width: 100%;
+    }
+}
+
+@for $i from 1 to $limit {
+    .m-#{$i}{
+        margin: #{$i*$unit}px;
+    }
+}
+
+@for $i from 1 to $limit {
+    .p-#{$i}{
+        margin: #{$i*$unit}px;
+    }
+}
+
+@for $i from 1 to $limit {
+    .py-#{$i}{
+        margin: #{$i*$unit}px 0;
+    }
+}
+
+@for $i from 1 to 4 {
+    .w-#{$i * 25}{
+        width: $i * 25%;
+    }
+}
